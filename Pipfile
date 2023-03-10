@@ -8,6 +8,7 @@ djangorestframework = "*"
 markdown = "*"
 django-filter = "*"
 django-environ = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 
