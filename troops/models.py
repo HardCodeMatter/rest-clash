@@ -36,3 +36,22 @@ class Troops(models.Model):
     class Meta:
         verbose_name = 'Troop'
         verbose_name_plural = 'Troops'
+
+
+class TroopsUpgradeStatistic(models.Model):
+    troops = models.ForeignKey(Troops, on_delete=models.CASCADE, related_name='upgrade_statistic')
+    
+    level = models.IntegerField(('level'))
+    damage_per_second = models.IntegerField(('damage per second'))
+    damage_per_attack = models.IntegerField(('damage per attack'))
+    hitpoints = models.IntegerField(('hitpoints'))
+    research_cost = models.IntegerField(('research cost'))
+    research_time = models.IntegerField(('research time'))
+    laboratory_level_required = models.IntegerField(('laboratory level required'))
+
+    def __str__(self):
+        return f'{self.troops}'
+    
+    class Meta:
+        verbose_name = 'Upgrade statistic'
+        verbose_name_plural = 'Upgrade statistics'

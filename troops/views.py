@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 
-from .serializers import TroopsSerializer
-from .models import Troops
+from .serializers import TroopsSerializer, TroopsUpgradeStatisticSerializer
+from .models import Troops, TroopsUpgradeStatistic
 
 
 class TroopsViewSet(viewsets.ModelViewSet):

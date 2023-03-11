@@ -1,10 +1,26 @@
 from rest_framework import serializers
-from django.core.exceptions import FieldDoesNotExist
 
-from .models import Troops
+from .models import Troops, TroopsUpgradeStatistic
+
+
+class TroopsUpgradeStatisticSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TroopsUpgradeStatistic
+        fields = (
+            'id',
+            'level',
+            'damage_per_second',
+            'damage_per_attack',
+            'hitpoints',
+            'research_cost',
+            'research_time',
+            'laboratory_level_required',
+        )
 
 
 class TroopsSerializer(serializers.HyperlinkedModelSerializer):
+    upgrade_statistic = TroopsUpgradeStatisticSerializer(many=True)
+
     class Meta:
         model = Troops
         fields = (
@@ -19,16 +35,6 @@ class TroopsSerializer(serializers.HyperlinkedModelSerializer):
             'movement_speed',
             'training_time',
             'barracks_level_required',
-        )
-    
-    def to_representation(self, instance):
-        data = super().to_representation(instance)
 
-        for field in data:
-            try:
-                if instance._meta.get_field(field).choices:
-                    data[field] = getattr(instance, f'get_{field}_display')()
-            except FieldDoesNotExist:
-                pass
-        
-        return data
+            'upgrade_statistic',
+        )

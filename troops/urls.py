@@ -1,13 +1,21 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 
-from . import views
+from .views import TroopsViewSet
 
 
-router = routers.DefaultRouter()
-router.register(r'troops', views.TroopsViewSet)
+troops_list = TroopsViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+troops_detail = TroopsViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('troops/', troops_list, name='troops-list'),
+    path('troops/<int:pk>/', troops_detail, name='troops-detail'),
 ]
